@@ -97,7 +97,7 @@ function BrowseProducts() {
             <Table.ColumnHeaderCell></Table.ColumnHeaderCell>
           </Table.Row>
         </Table.Header>
-        <Table.Body>
+        <Table.Body role={isProductsLoading ? "progressbar" : undefined} aria-label={isProductsLoading ? "Loading products" : undefined} >
           {isProductsLoading &&
             skeletons.map((skeleton) => (
               <Table.Row key={skeleton}>

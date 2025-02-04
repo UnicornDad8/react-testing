@@ -29,4 +29,21 @@ describe("BrowseProductsPage", () => {
 
     await waitForElementToBeRemoved(() => screen.getByRole("progressbar", { name: /categories/i}));
   });
+
+  it("should show a loading skeleton when fetching products", () => {
+    server.use(http.get("/products", async () => {
+      await delay();
+      return HttpResponse.json([]);
+    }));
+
+    renderComponent();
+
+    expect(screen.getByRole('progressbar', { name: /products/i})).toBeInTheDocument();
+  });
+  
+  it("should hide the loading skeleton after products are fetched", async () => {
+    renderComponent();
+
+    await waitForElementToBeRemoved(() => screen.getByRole("progressbar", { name: /products/i}));
+  });
 });
