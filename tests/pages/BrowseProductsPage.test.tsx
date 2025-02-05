@@ -5,27 +5,40 @@ import { server } from '../mocks/server';
 import { http, delay, HttpResponse } from "msw";
 import BrowseProducts from '../../src/pages/BrowseProductsPage';
 import { db } from "../mocks/db";
-import { Category } from "../../src/entities";
+import { Category, Product } from "../../src/entities";
+import { CartProvider } from "../../src/providers/CartProvider";
 
 describe("BrowseProductsPage", () => {
   const categories: Category[] = [];
+  const products: Product[] = [];
 
   beforeAll(() => {
-    [1, 2].forEach(() => {
-      categories.push(db.category.create());
-    })
+    [1, 2].forEach((item) => {
+      const category = db.category.create({ name: 'Category ' + item });
+      categories.push(category);
+      [1, 2].forEach(() => {
+        products.push(
+          db.product.create({ categoryId: category.id })
+        );
+      });
+    });
   });
 
   afterAll(() => {
     const categoryIds = categories.map(c => c.id);
     db.category.deleteMany({ where: { id: { in: categoryIds }}});
+
+    const productIds = products.map(p => p.id);
+    db.product.deleteMany({ where: { id: { in: productIds }}});
   });
 
   const renderComponent = () => {
     render(
-      <Theme>
-        <BrowseProducts />
-      </Theme>
+      <CartProvider>
+        <Theme>
+          <BrowseProducts />
+        </Theme>
+      </CartProvider>
       );
   };
 
@@ -94,6 +107,16 @@ describe("BrowseProductsPage", () => {
     expect(screen.getByRole("option", { name: /all/i })).toBeInTheDocument();
     categories.forEach(category => {
       expect(screen.getByRole("option", { name: category.name })).toBeInTheDocument();
+    })
+  });
+
+  it("should render products", async () => {
+    renderComponent();
+
+    await waitForElementToBeRemoved(() => screen.queryByRole("progressbar", { name: /products/i }))
+
+    products.forEach(product => {
+      expect(screen.getByText(product.name)).toBeInTheDocument()
     })
   });
 });
