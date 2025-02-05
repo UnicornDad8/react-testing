@@ -1,10 +1,26 @@
 import { Theme } from "@radix-ui/themes";
 import { render, screen, waitForElementToBeRemoved } from '@testing-library/react';
+import userEvent from "@testing-library/user-event";
 import { server } from '../mocks/server';
 import { http, delay, HttpResponse } from "msw";
 import BrowseProducts from '../../src/pages/BrowseProductsPage';
+import { db } from "../mocks/db";
+import { Category } from "../../src/entities";
 
 describe("BrowseProductsPage", () => {
+  const categories: Category[] = [];
+
+  beforeAll(() => {
+    [1, 2].forEach(() => {
+      categories.push(db.category.create());
+    })
+  });
+
+  afterAll(() => {
+    const categoryIds = categories.map(c => c.id);
+    db.category.deleteMany({ where: { id: { in: categoryIds }}});
+  });
+
   const renderComponent = () => {
     render(
       <Theme>
@@ -52,10 +68,10 @@ describe("BrowseProductsPage", () => {
 
     renderComponent();
 
-    await waitForElementToBeRemoved(() => screen.getByRole('progressbar', { name: /categories/i }))
+    await waitForElementToBeRemoved(() => screen.getByRole("progressbar", { name: /categories/i }))
 
     expect(screen.queryByText(/error/i)).not.toBeInTheDocument();
-    expect(screen.queryByRole('combobox', { name: /category/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole("combobox", { name: /category/i })).not.toBeInTheDocument();
   });
 
   it("should render an error if products cannot be fetched", async () => {
@@ -64,5 +80,20 @@ describe("BrowseProductsPage", () => {
     renderComponent();
 
     expect(await screen.findByText(/error/i)).toBeInTheDocument();
+  });
+
+  it("should render categories", async () => {
+    renderComponent();
+
+    const combobox = await screen.findByRole("combobox");
+    expect(combobox).toBeInTheDocument();
+
+    const user = userEvent.setup();
+    await user.click(combobox);
+
+    expect(screen.getByRole("option", { name: /all/i })).toBeInTheDocument();
+    categories.forEach(category => {
+      expect(screen.getByRole("option", { name: category.name })).toBeInTheDocument();
+    })
   });
 });
