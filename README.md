@@ -67,3 +67,14 @@ This will start the back-end process at `http://localhost:3000`. If port 3000 is
 
 - json-server.json
 - src/main.tsx
+
+## Running tests
+
+```bash
+# run test ui
+npm run test:ui
+
+# run test coverage
+npm run coverage
+```
+Open in the browser test ui page and test coverage page (for the test coverage page there is an index.html on coverage folder generated)
