@@ -7,6 +7,7 @@ import AllProviders from '../AllProviders';
 import { Category, Product } from '../../src/entities';
 import { db } from '../mocks/db';
 import userEvent from '@testing-library/user-event';
+import { Toaster } from 'react-hot-toast';
 
 describe("ProductForm", () => {
   let category: Category;
@@ -20,9 +21,16 @@ describe("ProductForm", () => {
   });
 
   const renderComponent = (product?: Product) => {
-    render(<ProductForm product={product} onSubmit={vi.fn()} />, { wrapper: AllProviders });
+    const onSubmit = vi.fn();
+
+    render(
+      <>
+        <ProductForm product={product} onSubmit={onSubmit} />
+        <Toaster />
+      </>, { wrapper: AllProviders });
 
     return {
+      onSubmit,
       expectErrorToBeInTheDocument: (errorMessage: RegExp) => {
         const error = screen.getByRole("alert");
         expect(error).toBeInTheDocument();
@@ -45,7 +53,7 @@ describe("ProductForm", () => {
           id: 1,
           name: "a",
           price: 1,
-          categoryId: 1
+          categoryId: category.id
         }
 
         const fill = async (product: FormData) => {
@@ -164,5 +172,28 @@ describe("ProductForm", () => {
     await fill({ ...validData, price });
 
     expectErrorToBeInTheDocument(errorMessage);
+  });
+
+  it("should call onSubmit with the correct data", async () => {
+    const { waitForFormToLoad, onSubmit } = renderComponent();
+
+    const { fill, validData } = await waitForFormToLoad();
+    await fill({ ...validData });
+
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unused-vars
+    const { id, ...formData } = validData;
+    expect(onSubmit).toHaveBeenCalledWith(formData);
+  });
+
+  it("should display a toast if submission fails", async () => {
+    const { waitForFormToLoad, onSubmit } = renderComponent();
+    onSubmit.mockRejectedValue({});
+
+    const { fill, validData } = await waitForFormToLoad();
+    await fill({ ...validData });
+
+    const toast = await screen.findByRole("status");
+    expect(toast).toBeInTheDocument();
+    expect(toast).toHaveTextContent(/error/i);
   });
 });
