@@ -196,4 +196,34 @@ describe("ProductForm", () => {
     expect(toast).toBeInTheDocument();
     expect(toast).toHaveTextContent(/error/i);
   });
+
+  it("should disable the submit button upon submission", async () => {
+    const { waitForFormToLoad, onSubmit } = renderComponent();
+    onSubmit.mockReturnValue(new Promise(() => {}));
+
+    const { fill, validData, submitButton } = await waitForFormToLoad();
+    await fill({ ...validData });
+
+    expect(submitButton).toBeDisabled();
+  });
+
+  it("should re-enable the submit button after submission if submission is successfull", async () => {
+    const { waitForFormToLoad, onSubmit } = renderComponent();
+    onSubmit.mockResolvedValue({});
+
+    const { fill, validData, submitButton } = await waitForFormToLoad();
+    await fill({ ...validData });
+
+    expect(submitButton).not.toBeDisabled();
+  });
+
+  it("should re-enable the submit button after submission if submission throws an error", async () => {
+    const { waitForFormToLoad, onSubmit } = renderComponent();
+    onSubmit.mockRejectedValue("error");
+
+    const { fill, validData, submitButton } = await waitForFormToLoad();
+    await fill({ ...validData });
+
+    expect(submitButton).not.toBeDisabled();
+  });
 });
