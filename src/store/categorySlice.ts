@@ -53,4 +53,4 @@ export const categorySlice = createSlice({
 
 export const categorySelector = (state: RootState) => state.category;
 
-export default categorySlice.reducer;
+export default categorySlice.reducer; 

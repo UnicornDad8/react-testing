@@ -9,7 +9,7 @@ import { LanguageProvider } from "./language/LanguageProvider";
 
 const Providers = ({ children }: PropsWithChildren) => {
   return (
-    <AuthProvider>
+    <AuthProvider> 
       <ReactQueryProvider>
         <ReduxProvider>
           <CartProvider>
@@ -21,6 +21,6 @@ const Providers = ({ children }: PropsWithChildren) => {
       </ReactQueryProvider>
     </AuthProvider>
   );
-};
+}; 
 
 export default Providers;
