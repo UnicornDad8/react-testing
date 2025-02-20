@@ -22,7 +22,7 @@ describe("AuthStatus", () => {
       user: undefined
     });
 
-    render(<AuthStatus />);
+    render(<AuthStatus />); 
 
     expect(screen.getByRole("button", { name: /log in/i })).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /log out/i })).not.toBeInTheDocument();
