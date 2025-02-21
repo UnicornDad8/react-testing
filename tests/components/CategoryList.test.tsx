@@ -5,7 +5,6 @@ import {
 } from "@testing-library/react";
 import CategoryList from "../../src/components/CategoryList";
 import { Category } from "../../src/entities";
-import ReduxProvider from "../../src/providers/ReduxProvider";
 import { db } from "../mocks/db";
 import { simulateDelay, simulateError } from "../utils";
 import AllProviders from "../AllProviders";
