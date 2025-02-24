@@ -5,15 +5,18 @@ import {
 } from "@testing-library/react";
 import CategoryList from "../../src/components/CategoryList";
 import { Category } from "../../src/entities";
+import AllProviders from "../AllProviders";
 import { db } from "../mocks/db";
 import { simulateDelay, simulateError } from "../utils";
-import AllProviders from "../AllProviders";
+
 describe("CategoryList", () => {
   const categories: Category[] = [];
 
   beforeAll(() => {
-    [1, 2].forEach(() => {
-      const category = db.category.create();
+    [1, 2].forEach((item) => {
+      const category = db.category.create({
+        name: "Category " + item,
+      });
       categories.push(category);
     });
   });
@@ -31,6 +34,7 @@ describe("CategoryList", () => {
 
   it("should render a list of categories", async () => {
     renderComponent();
+
     await waitForElementToBeRemoved(() =>
       screen.queryByText(/loading/i)
     );
@@ -49,7 +53,7 @@ describe("CategoryList", () => {
 
     expect(screen.getByText(/loading/i)).toBeInTheDocument();
   });
- 
+
   it("should render an error message if fetching categories fails", async () => {
     simulateError("/categories");
 
