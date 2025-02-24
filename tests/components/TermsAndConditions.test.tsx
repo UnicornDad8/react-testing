@@ -1,6 +1,6 @@
-import { render, screen } from '@testing-library/react';
-import TermsAndConditions from '../../src/components/TermsAndConditions';
-import userEvent from '@testing-library/user-event';
+import { render, screen } from "@testing-library/react";
+import TermsAndConditions from "../../src/components/TermsAndConditions";
+import userEvent from "@testing-library/user-event";
 
 describe("TermsAndConditions", () => {
   const renderComponent = () => {
@@ -9,7 +9,7 @@ describe("TermsAndConditions", () => {
     return {
       heading: screen.getByRole("heading"),
       checkbox: screen.getByRole("checkbox"),
-      button: screen.getByRole("button")
+      button: screen.getByRole("button"),
     };
   };
 
@@ -25,8 +25,9 @@ describe("TermsAndConditions", () => {
     const { checkbox, button } = renderComponent();
 
     const user = userEvent.setup();
+    await user.tab();
     await user.click(checkbox);
-    
+
     expect(button).toBeEnabled();
   });
 });

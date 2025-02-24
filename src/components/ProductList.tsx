@@ -1,12 +1,12 @@
 import axios from "axios";
-import { Product } from "../entities";
 import { useQuery } from "react-query";
+import { Product } from "../entities";
 
 const ProductList = () => {
   const { data: products, error, isLoading } = useQuery<Product[], Error>({
-    queryKey: ["products"],
-    queryFn: () => axios.get<Product[]>("/products").then(res => res.data)
-  })
+    queryKey: ['products'],
+    queryFn: () => axios.get<Product[]>('/products').then(res => res.data)
+  });
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -21,6 +21,6 @@ const ProductList = () => {
       ))}
     </ul>
   );
-};
+}; 
 
 export default ProductList;

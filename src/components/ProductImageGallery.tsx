@@ -12,4 +12,4 @@ const ProductImageGallery = ({ imageUrls }: { imageUrls: string[] }) => {
   );
 };
 
-export default ProductImageGallery;
+export default ProductImageGallery; 

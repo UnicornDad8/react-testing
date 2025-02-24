@@ -9,4 +9,4 @@ const ReactQueryProvider = ({ children }: PropsWithChildren) => {
   );
 };
 
-export default ReactQueryProvider;
+export default ReactQueryProvider; 

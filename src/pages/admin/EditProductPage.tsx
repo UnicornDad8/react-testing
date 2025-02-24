@@ -33,4 +33,4 @@ const EditProductPage = withAuthenticationRequired(() => {
   );
 });
 
-export default EditProductPage;
+export default EditProductPage; 

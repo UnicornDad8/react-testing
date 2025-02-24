@@ -7,4 +7,4 @@ const Label = ({ labelId }: { labelId: string }) => {
   return <Text>{getLabel(labelId)}</Text>;
 };
 
-export default Label;
+export default Label;  

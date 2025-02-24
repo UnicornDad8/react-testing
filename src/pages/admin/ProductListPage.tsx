@@ -55,4 +55,4 @@ const useProducts = () =>
     queryFn: () => axios.get("/products").then((res) => res.data),
   });
 
-export default ProductListPage;
+export default ProductListPage; 

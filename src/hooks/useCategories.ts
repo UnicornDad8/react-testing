@@ -9,4 +9,4 @@ const useCategories = () => {
   });
 };
 
-export default useCategories;
+export default useCategories; 

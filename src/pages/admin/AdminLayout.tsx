@@ -4,4 +4,4 @@ const AdminLayout = () => {
   return <Outlet />;
 };
 
-export default AdminLayout;
+export default AdminLayout; 

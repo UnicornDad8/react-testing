@@ -6,13 +6,17 @@ import ProductTable from "../components/ProductTable";
 function BrowseProducts() {
   const [selectedCategoryId, setSelectedCategoryId] = useState<
     number | undefined
-  >(); 
+  >();
 
   return (
     <div>
       <h1>Products</h1>
       <div className="max-w-xs">
-        <CategorySelect onChange={(categoryId) => setSelectedCategoryId(categoryId)} />
+        <CategorySelect
+          onChange={(categoryId) =>
+            setSelectedCategoryId(categoryId)
+          }
+        />
       </div>
       <ProductTable selectedCategoryId={selectedCategoryId} />
     </div>
@@ -20,3 +24,4 @@ function BrowseProducts() {
 }
 
 export default BrowseProducts;
+

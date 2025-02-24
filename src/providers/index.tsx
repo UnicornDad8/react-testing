@@ -8,16 +8,16 @@ import { LanguageProvider } from "./language/LanguageProvider";
 
 const Providers = ({ children }: PropsWithChildren) => {
   return (
-    <AuthProvider> 
+    <AuthProvider>
       <ReactQueryProvider>
-        <CartProvider>
-          <LanguageProvider language="en">
-            <Theme>{children}</Theme>
-          </LanguageProvider>
-        </CartProvider>
+          <CartProvider>
+            <LanguageProvider language="en">
+              <Theme>{children}</Theme>
+            </LanguageProvider>
+          </CartProvider>
       </ReactQueryProvider>
     </AuthProvider>
   );
-}; 
+};
 
 export default Providers;

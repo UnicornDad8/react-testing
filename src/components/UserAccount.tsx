@@ -12,4 +12,4 @@ const UserAccount = ({ user }: { user: User }) => {
   );
 };
 
-export default UserAccount;
+export default UserAccount; 

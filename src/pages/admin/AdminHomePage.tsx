@@ -10,4 +10,4 @@ const AdminHomePage = withAuthenticationRequired(() => {
   );
 });
 
-export default AdminHomePage;
+export default AdminHomePage; 

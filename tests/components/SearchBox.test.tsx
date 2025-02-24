@@ -1,6 +1,6 @@
-import { render, screen } from '@testing-library/react';
-import SearchBox from '../../src/components/SearchBox';
-import userEvent from '@testing-library/user-event';
+import { render, screen } from "@testing-library/react";
+import SearchBox from "../../src/components/SearchBox";
+import userEvent from "@testing-library/user-event";
 
 describe("SearchBox", () => {
   const renderSearchBox = () => {
@@ -11,12 +11,12 @@ describe("SearchBox", () => {
       input: screen.getByPlaceholderText(/search/i),
       user: userEvent.setup(),
       onChange,
-    }
+    };
   };
 
   it("should render an input field for searching", () => {
     const { input } = renderSearchBox();
-  
+
     expect(input).toBeInTheDocument();
   });
 
@@ -24,7 +24,7 @@ describe("SearchBox", () => {
     const { input, onChange, user } = renderSearchBox();
 
     const searchTerm = "SearchTerm";
-    await user.type(input, `${searchTerm}{enter}`);
+    await user.type(input, searchTerm + "{enter}");
 
     expect(onChange).toHaveBeenCalledWith(searchTerm);
   });

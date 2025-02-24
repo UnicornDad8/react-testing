@@ -20,4 +20,4 @@ const ExpandableText = ({ text }: { text: string }) => {
   );
 };
 
-export default ExpandableText;
+export default ExpandableText; 

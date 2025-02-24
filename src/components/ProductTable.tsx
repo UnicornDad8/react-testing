@@ -1,26 +1,30 @@
-import { useQuery } from 'react-query';
-import { Product } from '../entities';
-import axios from 'axios';
-import { Table } from '@radix-ui/themes';
-import Skeleton from 'react-loading-skeleton';
-import QuantitySelector from './QuantitySelector';
+import { Table } from "@radix-ui/themes";
+import axios from "axios";
+import Skeleton from "react-loading-skeleton";
+import { useQuery } from "react-query";
+import { Product } from "../entities";
+import QuantitySelector from "./QuantitySelector";
 
 interface Props {
   selectedCategoryId?: number;
 }
 
 const ProductTable = ({ selectedCategoryId }: Props) => {
-  const {error, isLoading, data: products} = useQuery<Product[], Error>({
+  const productsQuery = useQuery<Product[], Error>({
     queryKey: ["products"],
-    queryFn: () => axios.get<Product[]>("/products").then(res => res.data)
+    queryFn: () =>
+      axios.get<Product[]>("/products").then((res) => res.data),
   });
 
   const skeletons = [1, 2, 3, 4, 5];
+  const { error, data: products, isLoading } = productsQuery;
 
   if (error) return <div>Error: {error.message}</div>;
 
   const visibleProducts = selectedCategoryId
-    ? products!.filter((p) => p.categoryId === selectedCategoryId)
+    ? products!.filter(
+        (p) => p.categoryId === selectedCategoryId
+      )
     : products;
 
   return (
@@ -32,7 +36,10 @@ const ProductTable = ({ selectedCategoryId }: Props) => {
           <Table.ColumnHeaderCell></Table.ColumnHeaderCell>
         </Table.Row>
       </Table.Header>
-      <Table.Body role={isLoading ? "progressbar" : undefined} aria-label={isLoading ? "Loading products" : undefined} >
+      <Table.Body
+        role={isLoading ? "progressbar" : undefined}
+        aria-label={isLoading ? "Loading products" : undefined}
+      >
         {isLoading &&
           skeletons.map((skeleton) => (
             <Table.Row key={skeleton}>
@@ -60,6 +67,6 @@ const ProductTable = ({ selectedCategoryId }: Props) => {
       </Table.Body>
     </Table.Root>
   );
-}
+};
 
-export default ProductTable;
+export default ProductTable; 

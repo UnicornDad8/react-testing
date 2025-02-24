@@ -70,3 +70,4 @@ export function CartProvider({ children }: PropsWithChildren) {
     </CartContext.Provider>
   );
 }
+

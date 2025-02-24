@@ -18,4 +18,4 @@ const QuantitySelector = ({ product }: { product: Product }) => {
   );
 };
 
-export default QuantitySelector;
+export default QuantitySelector; 

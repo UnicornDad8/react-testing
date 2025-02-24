@@ -45,4 +45,4 @@ export const navigateTo = (path: string) => {
   })
 
   render(<RouterProvider router={router} />);
-} 
+}

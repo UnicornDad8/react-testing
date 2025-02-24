@@ -22,4 +22,4 @@ const SearchBox = ({ onChange }: Props) => {
   );
 };
 
-export default SearchBox;
+export default SearchBox; 

@@ -26,4 +26,4 @@ const fetchProduct = async (id: number) => {
   }
 };
 
-export default useProduct;
+export default useProduct; 

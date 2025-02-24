@@ -25,4 +25,4 @@ const NewProductPage = withAuthenticationRequired(
   }
 );
 
-export default NewProductPage;
+export default NewProductPage; 

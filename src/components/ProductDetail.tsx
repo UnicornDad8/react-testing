@@ -3,12 +3,12 @@ import { useQuery } from "react-query";
 import axios from "axios";
 
 const ProductDetail = ({ productId }: { productId: number }) => {
-  const {data: product, isLoading, error} = useQuery<Product, Error>({
-    queryKey: ["products", productId],
-    queryFn: () => axios.get<Product>("/products/" + productId).then(res => res.data)
-  });
+  const { data: product, isLoading, error } = useQuery<Product, Error>({
+    queryKey: ['products', productId],
+    queryFn: () => axios.get<Product>('/products/' + productId).then(res => res.data)
+  })
 
-  if(!productId) return (<div>Invalid Product Id</div>)
+  if (!productId) return <div>Invalid productId</div>;
 
   if (isLoading) return <div>Loading...</div>;
 

@@ -4,4 +4,4 @@ const Greet = ({ name }: { name?: string }) => {
   return <button>Login</button>;
 };
 
-export default Greet;
+export default Greet; 

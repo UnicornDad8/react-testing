@@ -14,4 +14,4 @@ const UserList = ({ users }: { users: User[] }) => {
   );
 };
 
-export default UserList;
+export default UserList; 

@@ -49,7 +49,7 @@ const ProductForm = ({ product, onSubmit }: Props) => {
     >
       <Box>
         <TextField.Root className="max-w-sm">
-          <TextField.Input autoFocus aria-label="name" placeholder="Name" {...register("name")} size="3" />
+          <TextField.Input autoFocus placeholder="Name" {...register("name")} size="3" />
         </TextField.Root>
         <ErrorMessage error={errors.name} />
       </Box>
@@ -100,4 +100,4 @@ const ProductForm = ({ product, onSubmit }: Props) => {
   );
 };
 
-export default ProductForm;
+export default ProductForm;  
