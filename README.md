@@ -63,6 +63,8 @@ npm install
 npm start
 ```
 
+![product screen](./public/products_screen.png)
+
 This will start the back-end process at `http://localhost:3000`. If port 3000 is in use on your machine, update the port number in the following files and run `npm start` again: 
 
 - json-server.json
@@ -78,3 +80,8 @@ npm run test:ui
 npm run coverage
 ```
 Open in the browser test ui page and test coverage page (for the test coverage page there is an index.html on coverage folder generated)
+
+tests ui
+![tests screen](./public/vitest_screen.png)
+
+
